@@ -5,6 +5,7 @@ import Feature from '../../components/landing/Feature'
 import Testimoni from '../../components/landing/Testimoni'
 import FAQ from '../../components/landing/FAQ'
 import Footer from '../../components/landing/Footer'
+import AiChatbot from '../../components/AI Chatbot/AiChatbot'
 
 const LandingPage = () => {
   return (
@@ -17,6 +18,7 @@ const LandingPage = () => {
         <FAQ />
       </main>
       <Footer />
+      <AiChatbot />
     </div>
   )
 }

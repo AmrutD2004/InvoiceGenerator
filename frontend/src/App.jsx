@@ -17,6 +17,7 @@ import ProfilePage from './pages/Profile/ProfilePage'
 import ProtectedRoute from './components/auth/ProtectedRoute'
 
 const App = () => {
+  
   return (
     <div>
       <Router>

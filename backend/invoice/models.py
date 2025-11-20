@@ -21,7 +21,7 @@ class Item(models.Model):
     quantity = models.PositiveIntegerField(blank=False, null=False)
     unitPrice = models.DecimalField(max_digits=10, decimal_places=2)
     taxPercent = models.DecimalField(max_digits=5, decimal_places=2, default=0)
-    total = models.DecimalField(max_digits=10, decimal_places=2)
+    total = models.DecimalField(max_digits=10, decimal_places=2, null=True)
 
     def __str__(self):
         return f"{self.name} ({self.quantity} pcs)"
@@ -33,7 +33,7 @@ class Item(models.Model):
 # ✅ INVOICE MODEL
 class Invoice(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invoices')
-    invoiceNumber = models.CharField(max_length=20, blank=False, unique=True)
+    invoiceNumber = models.CharField(max_length=20, blank=False, unique=True,)
     invoiceDate = models.DateField(auto_now_add=True)
     dueDate = models.DateField(null=True, blank=True)
 
@@ -62,7 +62,7 @@ class Invoice(models.Model):
     )
     subtotal = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     taxTotal = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-    total = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

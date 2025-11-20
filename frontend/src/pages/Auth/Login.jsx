@@ -38,6 +38,9 @@ const Login = () => {
       localStorage.setItem("userID", data.userID)
       localStorage.setItem("userName", data.userName)
       localStorage.setItem("useremail", data.eMail)
+      localStorage.setItem("userBusinessname", data.businessname)
+      localStorage.setItem("useraddress", data.address)
+      localStorage.setItem("userphone", data.phone)
 
       
       setTimeout(() => {
