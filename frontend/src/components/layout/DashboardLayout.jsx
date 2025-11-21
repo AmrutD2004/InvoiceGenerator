@@ -50,7 +50,7 @@ const DashboardLayout = ({ children }) => {
 
           <div className="p-4 pb-2 flex items-center border-b border-[#721378] bg-white">
             <div className={`flex items-center overflow-hidden transition-all ${siderCollaps && 'w-0'}`}>
-              <img className="w-8 h-8" src="invoicy.png" alt="" />
+              <img className="w-8 h-8" src="https://res.cloudinary.com/dq7ldqmy4/image/upload/v1763734926/invoicy_rbzr0y.png" alt="" />
               <span className="text-lg font-bold text-neutral-800">Inv</span>
               <span className="text-[#8a0194] text-lg font-semibold">oicy</span>
             </div>

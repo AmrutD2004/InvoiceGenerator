@@ -3,6 +3,7 @@ import { Trash2, WandSparkles, Plus } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import Modal from '../../components/Modal/Modal';
 
 const CreateInvoice = () => {
   const userID = localStorage.getItem('userID')
@@ -131,6 +132,7 @@ const CreateInvoice = () => {
 
     if (response.ok) {
       toast.success('Invoice created successfully')
+      setInvoice('')
     } else {
       toast.error('Something went wrong')
       console.log(data)
@@ -148,6 +150,25 @@ const CreateInvoice = () => {
     }
   }, [])
 
+  const [openModal, setOpenModal] = useState(false)
+
+  const handleExtractData = (data)=>{
+    setInvoice(prev=>({
+      ...prev,
+      clientName : data.clientName || '',
+      clientEmail : data.clientEmail || '',
+      clientAddress : data.clientAddress || '',
+      clientPhone : data.clientPhone || '',
+      name : data.itemName || '',
+      quantity : data.itemQuantity || '',
+      unitPrice : data.itemPerPrice || '',
+      taxPercent : data.itemtaxPercent || '',
+
+    }))
+  }
+
+  
+
   return (
     <div className='max-w-7xl mx-auto h-screen'>
       <form onSubmit={handleSubmit} className="flex flex-col w-full space-y-3">
@@ -155,7 +176,10 @@ const CreateInvoice = () => {
         <div className='p-5 flex items-center justify-between'>
           <h1 className='text-3xl font-semibold tracking-tighter text-neutral-700 text-shadow-md'>Create Invoice</h1>
           <div className="flex items-center justify-center gap-3">
-            <button type='button' className='px-4 py-3 text-white font-medium bg-[#8a0194] rounded-lg hover:bg-[#6b0074] hover:scale-102 cursor-pointer transition-all duration-200 shadow-md flex items-center gap-1'><WandSparkles />Create with AI</button>
+            <button onClick={()=>setOpenModal(true)} type='button' className='px-4 py-3 text-white font-medium bg-[#8a0194] rounded-lg hover:bg-[#6b0074] hover:scale-102 cursor-pointer transition-all duration-200 shadow-md flex items-center gap-1'><WandSparkles />Create with AI</button>
+            {openModal && (
+              <Modal onExtract={handleExtractData}  close={()=>setOpenModal(false)}/>
+            )}
             <button type='submit' className='px-4 py-3 text-white font-medium bg-[#8a0194] rounded-lg hover:bg-[#6b0074] hover:scale-102 cursor-pointer transition-all duration-200 shadow-md'>Save Invoice</button>
           </div>
         </div>
@@ -179,7 +203,7 @@ const CreateInvoice = () => {
 
         <div className="m-5 bg-gray-100 border-neutral-300">
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 space-x-7">
+          <div className="grid grid-cols-1 space-y-3 lg:grid-cols-2 lg:space-x-7">
             <div className="bg-white flex flex-col border border-neutral-300 rounded-lg shadow-sm">
               <h1 className="text-lg text-neutral-700 tracking-tighter leading-tight px-3 py-5 font-semibold">Bill Form</h1>
               

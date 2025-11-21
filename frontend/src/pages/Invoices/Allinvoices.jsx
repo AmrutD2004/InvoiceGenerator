@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Plus, Search, SquarePen, Trash2, Mail } from 'lucide-react'
 import axios from 'axios'
 import dayjs from 'dayjs'
+import { Link } from 'react-router-dom'
 
 const Allinvoices = () => {
 
@@ -47,7 +48,7 @@ const Allinvoices = () => {
           <p className='text-sm tracking-tight text-neutral-500'>Manage all your invoices in one place</p>
         </div>
         <div>
-          <button className='px-4 py-2 bg-[#8a0194] text-white rounded-lg shadow-sm cursor-pointer hover:scale-102 hover:bg-[#721378] transition-all duration-200 flex items-center gap-2'><Plus className='text-sm' />Create Invoice</button>
+          <Link to="/invoices/new" className='px-4 py-2 bg-[#8a0194] text-white rounded-lg shadow-sm cursor-pointer hover:scale-102 hover:bg-[#721378] transition-all duration-200 flex items-center gap-2'><Plus className='text-sm' />Create Invoice</Link>
         </div>
       </div>
       <div className='p-5 m-5 w-full border border-neutral-200 rounded-lg shadow-md'>
@@ -90,7 +91,9 @@ const Allinvoices = () => {
                   </span>
                   </td>
                   <td>
-                    <button onClick={() => handleStatusChange(invoices.id)} className='border border-neutral-300 px-3 py-2 rounded-lg m-1 cursor-pointer' >Mark paid or Mark Unpai</button>
+                    <button onClick={() => handleStatusChange(invoices.id)} className='border border-neutral-300 px-3 py-2 rounded-lg m-1 cursor-pointer' >{invoices.status.toLowerCase() === 'paid' ? (
+                      'Mark Unpaid'
+                    ): ('Mark Paid')}</button>
                   </td>
                   <td className='px-5'>
                     <div className='flex items-center justify-between'>

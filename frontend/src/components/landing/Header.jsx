@@ -10,6 +10,7 @@ const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navigate = useNavigate()
 
+
     const handlelogout = () => {
         localStorage.removeItem('userName')
         localStorage.removeItem('useremail')
@@ -41,7 +42,7 @@ const Header = () => {
                     {/* Logo Section */}
                     <div className='flex items-center justify-center'>
                         <Link to="/" className='flex items-center justify-center leading-tight tracking-tighter text-shadow-xs'>
-                            <img src="invoicy.png" alt="logo" width="50" />
+                            <img src="https://res.cloudinary.com/dq7ldqmy4/image/upload/v1763734926/invoicy_rbzr0y.png" alt="logo" width="50" />
                             <span className='text-2xl font-bold text-neutral-800'>Inv</span>
                             <span className='text-[#8a0194] text-2xl font-semibold'>oicy</span>
                         </Link>

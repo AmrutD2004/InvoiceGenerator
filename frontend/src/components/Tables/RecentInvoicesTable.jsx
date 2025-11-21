@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import dayjs from 'dayjs'
 
-const RecentInvoicesTable = () => {
+const RecentInvoicesTable = ({ invoice }) => {
+
     return (
         <table className="flex-1 w-full ">
             <thead className="bg-gray-100 border-b ">
@@ -13,13 +15,25 @@ const RecentInvoicesTable = () => {
             </thead>
 
             <tbody>
-                <tr>
-                    <td className="px-6 py-3 text-left text-neutral-700 flex flex-col font-medium"><span>Jhon</span>
-                        <span className='text-sm text-neutral-500 leading-3 tracking-tight'>#INV-204</span></td>
-                    <td className="px-6 py-3 text-center text-neutral-700 font-medium">$250</td>
-                    <td className="px-6 py-3 text-center text-green-700 font-medium "><span className='bg-green-300 px-2 py-1 rounded-xl'>Paid</span></td>
-                    <td className="px-6 py-3 text-center text-neutral-700 font-medium">Sep 30, 2025</td>
-                </tr>
+                {invoice.map((inv) => (
+                    <tr>
+                        <td key={inv.id} className="px-6 py-3 text-left text-neutral-700 flex flex-col font-medium"><span>{inv.clientName}</span>
+                            <span className='text-sm text-neutral-500 leading-3 tracking-tight'>{inv.invoiceNumber}</span></td>
+                        <td className="px-6 py-3 text-center text-neutral-700 font-medium">${inv.total}</td>
+                        <td className="px-6 text-center text-neutral-700  font-medium text-sm"><span
+                            className={
+                                inv.status === "Paid"
+                                    ? "bg-green-300 px-2 py-1 rounded-xl"
+                                    : "bg-red-300 px-2 py-1 rounded-xl"
+                            }
+                        >
+                            {inv.status}
+                        </span>
+                        </td>
+                        <td className="px-6 py-3 text-center text-neutral-700 font-medium">{dayjs(inv.dueDate).format('MMM D, YYYY')}</td>
+                    </tr>
+                ))}
+
             </tbody>
         </table>
     )

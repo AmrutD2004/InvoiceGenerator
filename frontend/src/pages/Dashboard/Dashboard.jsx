@@ -1,12 +1,41 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FileChartColumnIncreasing, DollarSign, Lightbulb } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom';
 import { FaRegFileAlt } from "react-icons/fa";
 import AiInsights from '../../components/AI Magics/AiInsights';
 import RecentInvoicesTable from '../../components/Tables/RecentInvoicesTable';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+
 
 
 const Dashboard = () => {
+  const userID = localStorage.getItem('userID')
+
+  const [invoice, setInvoice] = useState([])
+
+  const fetchInvoices = async (id) => {
+    const response = await axios.get(`http://127.0.0.1:8000/api/all-invoices/${id}`)
+    setInvoice(response.data)
+  }
+
+
+  useEffect(() => {
+    if (userID) {
+      fetchInvoices(userID)
+    } else {
+      setTimeout(() => {
+        toast.error("Please login first")
+        navigate('/')
+      }, 2000)
+
+
+    }
+  }, [])
+
+  const totalPaid = invoice.filter(inv=> inv.status.toLowerCase() === 'paid').reduce((sum, inv)=>sum + Number(inv.total), 0)
+    const totalUnpaid = invoice.filter(inv => inv.status.toLowerCase() === 'unpaid').reduce((sum, inv) => Number(sum + inv.total), 0);
+
 
   const navigate = useNavigate()
   return (
@@ -24,27 +53,29 @@ const Dashboard = () => {
           </div>
           <div>
             <h1 className='text-md  tracking-tighter leading-6 text-neutral-600 font-semibold'>Total Invoices</h1>
-            <span className='text-2xl font-bold text-neutral-700'>9</span>
+            <span className='text-2xl font-bold text-neutral-700'>{invoice.length}</span>
           </div>
         </div>
-        <div className='flex items-center  px-4 py-5 rounded-xl gap-4 bg-white shadow-md'>
-          <div className="p-1.5 bg-green-200 rounded-lg inline-flex">
-            <DollarSign className="text-green-800" size={28} />
-          </div>
-          <div>
-            <h1 className='text-md  tracking-tighter leading-6 text-neutral-600 font-semibold'>Total Paid</h1>
-            <span className='text-2xl font-bold text-neutral-700'>$9</span>
-          </div>
-        </div>
-        <div className='flex items-center  px-4 py-5  rounded-xl gap-4 bg-white shadow-md'>
-          <div className="p-1.5 bg-red-200 rounded-lg inline-flex">
-            <DollarSign className="text-red-800" size={28} />
-          </div>
-          <div>
-            <h1 className='text-md  tracking-tighter leading-6 text-neutral-600 font-semibold'>Total Unpaid</h1>
-            <span className='text-2xl font-bold text-neutral-700'>$9</span>
-          </div>
-        </div>
+              <div className='flex items-center  px-4 py-5 rounded-xl gap-4 bg-white shadow-md'>
+                <div className="p-1.5 bg-green-200 rounded-lg inline-flex">
+                  <DollarSign className="text-green-800" size={28} />
+                </div>
+                <div>
+                  <h1 className='text-md  tracking-tighter leading-6 text-neutral-600 font-semibold'>Total Paid</h1>
+                  <span className='text-2xl font-bold text-neutral-700'>${totalPaid}</span>
+                </div>
+              </div>
+              <div className='flex items-center  px-4 py-5  rounded-xl gap-4 bg-white shadow-md'>
+                <div className="p-1.5 bg-red-200 rounded-lg inline-flex">
+                  <DollarSign className="text-red-800" size={28} />
+                </div>
+                <div>
+                  <h1 className='text-md  tracking-tighter leading-6 text-neutral-600 font-semibold'>Total Unpaid</h1>
+                  <span className='text-2xl font-bold text-neutral-700'>${totalUnpaid || '0'}</span>
+                </div>
+              </div>
+
+
       </div>
 
       <AiInsights />
@@ -56,7 +87,7 @@ const Dashboard = () => {
             <span className='text-xl font-semibold tracking-tighter leading-tight text-neutral-700 p-6'>Recent Invoices</span>
             <Link to="/invoices" className='text-neutral-700 font-medium p-6 cursor-pointer hover:underline transition-all duration-200'>View All</Link>
           </div>
-          <RecentInvoicesTable />
+          <RecentInvoicesTable invoice={invoice} />
         </div>
       </div>
     </div>
