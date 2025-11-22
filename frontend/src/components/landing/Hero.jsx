@@ -1,5 +1,4 @@
-import React from 'react';
-import HeroImg from '../../assets/Invoice Template Generator Image .png';
+import React from 'react';    
 import { Link, useNavigate } from 'react-router-dom';
 
 const Hero = () => {
@@ -66,9 +65,9 @@ const Hero = () => {
           {/* Hero Image */}
           <div className="flex justify-center lg:justify-end">
             <img
-              src={HeroImg}
+              src="https://res.cloudinary.com/dq7ldqmy4/image/upload/v1763823146/Screenshot_2025-11-22_202051_sihk23.png"
               alt="AI-powered invoice generator dashboard illustration"
-              className="w-full max-w-lg drop-shadow-2xl rounded-2xl animate-fadeIn"
+              className="w-full max-w-lg drop-shadow-2xl drop-shadow-[#f6cfff] rounded-2xl animate-fadeIn border border-[#f6cfff] hover:scale-102 transition-all duration-200 ease-out"
             />
           </div>
         </div>

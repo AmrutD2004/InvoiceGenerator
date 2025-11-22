@@ -3,6 +3,7 @@ from .models import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import * 
 from .serializers import *
@@ -89,3 +90,14 @@ def invoice_status(request, invoice_id):
 
     serializers = InvoiceSerializer(invoice)
     return Response(serializers.data, status=200)
+
+
+@csrf_exempt
+@api_view(['DELETE'])
+def delete_invoice(request, invoice_id):
+    try:
+        invoice = Invoice.objects.get(id=invoice_id)
+        invoice.delete()
+        return Response({"message":"Invoice Deleted Successfully"})
+    except:
+        return Response({"message":"Please try again!"})

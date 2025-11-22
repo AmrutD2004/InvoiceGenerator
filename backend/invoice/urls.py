@@ -10,4 +10,5 @@ urlpatterns = [
     path("create-invoice/", create_invoice,name='create-invoice'),
     path("all-invoices/<int:user_id>", all_invoices, name="all-invoices"),
     path("invoice-status/<int:invoice_id>", invoice_status, name="invoice-status"),
+    path("delete-invoice/<int:invoice_id>", delete_invoice, name="delete-invoice"),
 ]

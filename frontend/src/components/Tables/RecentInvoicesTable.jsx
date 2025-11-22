@@ -16,8 +16,8 @@ const RecentInvoicesTable = ({ invoice }) => {
 
             <tbody>
                 {invoice.map((inv) => (
-                    <tr>
-                        <td key={inv.id} className="px-6 py-3 text-left text-neutral-700 flex flex-col font-medium"><span>{inv.clientName}</span>
+                    <tr key={inv.id}>
+                        <td  className="px-6 py-3 text-left text-neutral-700 flex flex-col font-medium"><span>{inv.clientName}</span>
                             <span className='text-sm text-neutral-500 leading-3 tracking-tight'>{inv.invoiceNumber}</span></td>
                         <td className="px-6 py-3 text-center text-neutral-700 font-medium">${inv.total}</td>
                         <td className="px-6 text-center text-neutral-700  font-medium text-sm"><span

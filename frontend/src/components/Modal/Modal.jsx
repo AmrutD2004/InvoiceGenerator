@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import OpenAI from "openai";
 import toast from 'react-hot-toast';
+import { LoaderPinwheel } from 'lucide-react';
 
 const Modal = ({ close, onExtract }) => {
 
     const [emailText, setEmailText] = useState({
         email: ''
     })
+
+    const [loading, setLoading] = useState(false)
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -21,6 +24,7 @@ const Modal = ({ close, onExtract }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setLoading(true)
         try {
             const response = await client.chat.completions.create({
                 model: "z-ai/glm-4.5-air:free",
@@ -41,11 +45,14 @@ const Modal = ({ close, onExtract }) => {
             const aiReply = JSON.parse(raw)
             setEmailText(prev => ({ ...prev, extracted: aiReply }))
             onExtract(aiReply)
-
             close();
         } catch (error) {
             toast.error("Something went wrong")
             console.log(error)
+            setLoading(false)
+
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -69,7 +76,14 @@ const Modal = ({ close, onExtract }) => {
                         Close
                     </button>
                     <button type='sumbit' onClick={handleSubmit} className="px-3 py-2 bg-[#8a0194] text-white rounded-lg cursor-pointer hover:bg-[#721378] transition-colors duration-200">
-                        Extract
+                        {loading ? (
+                            <div className="flex items-center gap-2">
+                                <LoaderPinwheel className="animate-spin text-white" size={18} />
+                                Extracting...
+                            </div>
+                        ) : (
+                            "Extract"
+                        )}
                     </button>
                 </div>
             </div>

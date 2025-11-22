@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Bot, X, StepForward } from "lucide-react";
 import OpenAI from "openai";
+import { LoaderPinwheel } from 'lucide-react';
 
 const AiChatbot = () => {
   const [openChat, setOpenChat] = useState(false);
@@ -8,6 +9,8 @@ const AiChatbot = () => {
   const [messages, setMessages] = useState([
     { sender: "ai", text: "Hi 👋, how can I help you today?" }
   ]);
+
+  const [loading, setLoading] = useState(false)
 
   const chatEndRef = useRef(null);
 
@@ -30,7 +33,7 @@ const AiChatbot = () => {
     setMessages(prev => [...prev, { sender: "user", text: userMessage }]);
     const prompt = userMessage;
     setUserMessage("");
-
+    setLoading(true)
     try {
       const response = await client.chat.completions.create({
         model: "z-ai/glm-4.5-air:free",
@@ -52,6 +55,9 @@ const AiChatbot = () => {
         ...prev,
         { sender: "ai", text: "Sorry, something went wrong. Please try again." }
       ]);
+      setLoading(false)
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -70,23 +76,36 @@ const AiChatbot = () => {
 
           {/* Messages Area */}
           <div className="flex-1 overflow-y-auto px-3 py-2 space-y-3 bg-gray-50">
+
+            {/* Render previous messages */}
             {messages.map((msg, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className={`flex w-full ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
               >
-                <span className={`px-3 py-2 text-sm rounded-lg shadow ${
-                    msg.sender === "user"
+                <span
+                  className={`px-3 py-2 text-sm rounded-lg shadow 
+        ${msg.sender === "user"
                       ? "bg-[#8a0194] text-white"
                       : "bg-white border border-neutral-300 text-neutral-800"
-                  }`}
+                    }`}
                 >
                   {msg.text}
                 </span>
               </div>
             ))}
+
+            {/* AI is typing... */}
+            {loading && (
+              <div className="flex items-center gap-2 text-neutral-400">
+                <LoaderPinwheel className="animate-spin" size={18} />
+                <span className="text-xs">Invy is typing...</span>
+              </div>
+            )}
+
             <div ref={chatEndRef}></div>
           </div>
+
 
           {/* Input Area */}
           <form onSubmit={handleSubmit} className="p-3 border-t bg-white">
@@ -96,7 +115,7 @@ const AiChatbot = () => {
                 name="message"
                 value={userMessage}
                 onChange={(e) => setUserMessage(e.target.value)}
-                className="w-full pr-10 px-4 py-2 bg-gray-50 border border-neutral-300 rounded-lg focus:outline-none"
+                className="w-full pr-10 px-4 py-2 bg-gray-50 text-sm border border-neutral-300 rounded-lg focus:outline-none"
                 placeholder="Type a message..."
               />
               <button
