@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   BrowserRouter as Router,
   Routes,
@@ -17,7 +17,8 @@ import ProfilePage from './pages/Profile/ProfilePage'
 import ProtectedRoute from './components/auth/ProtectedRoute'
 
 const App = () => {
-  
+
+
   return (
     <div>
       <Router>
@@ -31,7 +32,7 @@ const App = () => {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/invoices" element={<Allinvoices />} />
             <Route path="/invoices/new" element={<CreateInvoice />} />
-            <Route path="/invoices/:id" element={<InvoiceDetail />} />
+            <Route path="/invoices/:invID" element={<InvoiceDetail />} />
             <Route path="/profile" element={<ProfilePage />} />
           </Route>
 

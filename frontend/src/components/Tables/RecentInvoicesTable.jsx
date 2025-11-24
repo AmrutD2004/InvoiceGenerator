@@ -5,7 +5,7 @@ const RecentInvoicesTable = ({ invoice }) => {
 
     return (
         <table className="flex-1 w-full ">
-            <thead className="bg-gray-100 border-b ">
+            <thead className="bg-gray-100 border-b border-neutral-300 ">
                 <tr>
                     <th className="text-left px-6 py-3  font-medium text-neutral-600 text-sm">CLIENT</th>
                     <th className="text-center px-6 py-3 font-medium text-neutral-600 text-sm">AMOUNT</th>
@@ -14,7 +14,7 @@ const RecentInvoicesTable = ({ invoice }) => {
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody className='bg-white'>
                 {invoice.map((inv) => (
                     <tr key={inv.id}>
                         <td  className="px-6 py-3 text-left text-neutral-700 flex flex-col font-medium"><span>{inv.clientName}</span>

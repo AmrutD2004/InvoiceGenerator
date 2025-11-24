@@ -36,22 +36,22 @@ const Allinvoices = () => {
 
   }, [userID])
 
-  const handleDelete = async (invIndex)=>{
-    if(window.confirm('Are you really want to delete invoice?')){
-          try{
-      const response = await fetch(`http://127.0.0.1:8000/api/delete-invoice/${invIndex}`,{
-        method : "DELETE",
-      })
-      if(response.ok){
-        toast.success("Invoice Deleted Successfully")
+  const handleDelete = async (invIndex) => {
+    if (window.confirm('Are you really want to delete invoice?')) {
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/api/delete-invoice/${invIndex}`, {
+          method: "DELETE",
+        })
+        if (response.ok) {
+          toast.success("Invoice Deleted Successfully")
+        }
+        else {
+          toast.error("Please try again!")
+        }
+      } catch (error) {
+        console.log("Something went wrong", error)
       }
-      else{
-        toast.error("Please try again!")
-      }
-    }catch(error){
-      console.log("Something went wrong", error)
-    }
-    fetchInvoices(userID)
+      fetchInvoices(userID)
     }
   }
 
@@ -125,8 +125,9 @@ const Allinvoices = () => {
                 </td>
               </tr>
             ) : (
-                invoices.map((inv, idx) => (
-                  <tr className='border-b border-neutral-300' key={idx}>
+              invoices.map((inv, idx) => (
+                <tr className='border-b border-neutral-300 hover:bg-gray-200 cursor-pointer transition-colors duration-200' key={idx}>
+                  <Link to={`/invoices/${inv.id}`} className='contents'>
                     <td className="px-6 text-left text-neutral-700 font-medium text-sm">{inv.invoiceNumber}</td>
                     <td className="px-6 text-left text-neutral-700 ium text-sm">{inv.clientName}</td>
                     <td className="px-6 text-left text-neutral-700  font-medium text-sm">{inv.total}</td>
@@ -148,14 +149,14 @@ const Allinvoices = () => {
                     </td>
                     <td className='px-5'>
                       <div className='flex items-center justify-between'>
-                        <SquarePen className='text-neutral-700 cursor-pointer' size={18} />
-                        <Trash2 onClick={()=>handleDelete(inv.id)} className='text-red-500 cursor-pointer' size={18} />
-                        <Printer className='text-blue-500 cursor-pointer' size={18} />
+                        <Trash2 onClick={() => handleDelete(inv.id)} className='text-red-500 cursor-pointer' size={18} />
+                        <Link to={`/invoices/${inv.id}`}><Printer className='text-blue-500 cursor-pointer' size={18} /></Link>
                       </div>
                     </td>
-                  </tr>
-                )
-                )
+                  </Link>
+                </tr>
+              )
+              )
 
             )}
 

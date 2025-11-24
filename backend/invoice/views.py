@@ -101,3 +101,16 @@ def delete_invoice(request, invoice_id):
         return Response({"message":"Invoice Deleted Successfully"})
     except:
         return Response({"message":"Please try again!"})
+    
+@api_view(['GET'])
+def invoice_detail(request, invoice_id):
+    try:
+        invoice = Invoice.objects.get(id=invoice_id)
+
+        serializers = InvoiceSerializer(invoice)
+        return Response(serializers.data, status=200)
+    except Invoice.DoesNotExist:
+        return Response({"message": "Invoice not found"}, status=404)
+
+    except Exception as e:
+        return Response({"message": "Something went wrong"}, status=500)
