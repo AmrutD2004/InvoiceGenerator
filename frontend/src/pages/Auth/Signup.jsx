@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Eye, EyeOff, Mail, Lock, FileText, User, PhoneCall, MapPin } from "lucide-react";
-import { toast, Toaster } from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 import { useNavigate } from "react-router-dom";
 
 

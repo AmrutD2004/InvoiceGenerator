@@ -41,18 +41,18 @@ const Header = () => {
                 <div className='flex items-center justify-between'>
                     {/* Logo Section */}
                     <div className='flex items-center justify-center'>
-                        <Link to="/" className='flex items-center justify-center leading-tight tracking-tighter text-shadow-xs'>
+                        <a href="#hero" className='flex items-center justify-center leading-tight tracking-tighter text-shadow-xs'>
                             <img src="https://res.cloudinary.com/dq7ldqmy4/image/upload/v1763734926/invoicy_rbzr0y.png" alt="logo" width="50" />
                             <span className='text-2xl font-bold text-neutral-800'>Inv</span>
                             <span className='text-[#8a0194] text-2xl font-semibold'>oicy</span>
-                        </Link>
+                        </a>
                     </div>
 
                     {/* Desktop Navigation */}
                     <div className='hidden lg:flex items-center justify-center gap-8'>
-                        <Link to="#feature" className='text-md text-neutral-600 hover:text-[#8a0194] transition-colors duration-200 '>Feature</Link>
-                        <Link to="/testimoni" className='text-md text-neutral-700 hover:text-[#8a0194] transition-colors duration-200'>Testimoni</Link>
-                        <Link to="/faq" className='text-md text-neutral-700 hover:text-[#8a0194] transition-colors duration-200'>FAQ's</Link>
+                        <a href="#feature" className='text-md text-neutral-600 hover:text-[#8a0194] transition-colors duration-200 '>Feature</a>
+                        <a href="#testimoni" className='text-md text-neutral-700 hover:text-[#8a0194] transition-colors duration-200'>Testimoni</a>
+                        <a href="#faq" className='text-md text-neutral-700 hover:text-[#8a0194] transition-colors duration-200'>FAQ's</a>
                     </div>
 
                     {/* Right Section (Auth + Dropdown) */}

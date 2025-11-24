@@ -30,7 +30,7 @@ const Hero = () => {
             </h1>
 
             <p className="text-lg text-neutral-600 max-w-xl mx-auto lg:mx-0">
-              Create, manage, and send invoices effortlessly — powered by AI automation to help you save time and get paid faster.
+              Create, manage invoices effortlessly — powered by AI automation to help you save time and get paid faster.
             </p>
 
             {/* CTA Buttons */}

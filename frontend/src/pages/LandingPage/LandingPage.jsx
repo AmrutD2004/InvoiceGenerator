@@ -11,12 +11,25 @@ const LandingPage = () => {
   return (
     <div className='bg-white'>
       <Header />
+
       <main>
-        <Hero />
-        <Feature  />
-        <Testimoni />
-        <FAQ />
+        <div id="hero">
+          <Hero />
+        </div>
+
+        <div id="feature">
+          <Feature />
+        </div>
+
+        <div id="testimoni">
+          <Testimoni />
+        </div>
+
+        <div id="faq">
+          <FAQ />
+        </div>
       </main>
+
       <Footer />
       <AiChatbot />
     </div>

@@ -137,7 +137,6 @@ const Login = () => {
           </a>
         </p>
       </div>
-      <Toaster/>
     </div>
   );
 };
